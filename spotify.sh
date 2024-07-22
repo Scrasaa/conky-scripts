@@ -19,7 +19,7 @@ parse_metadata() {
 
 # Function to parse artist (array type) metadata
 parse_artist() { 
-	echo "$metadata" | grep -A 2 "xesam:artist" | grep -E "string" | awk -F '"' '{print $2}' 
+	echo "Artist: $(echo "$metadata" | grep -A 2 "xesam:artist" | grep -E "string" | awk -F '"' '{print $2}' | sed 's/^xesam:artist//')"
 }
 
 # Retrieve album, artist, and title
@@ -29,7 +29,7 @@ title=$(parse_metadata "title")
 status=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' | tail -1 | cut -d "\"" -f2)
 
 # Display information
-echo "Artist: $artist"
+echo $artist
 echo "Album: $album"
 echo "Title: $title"
 echo "Status: $status"
