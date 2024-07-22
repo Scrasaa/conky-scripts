@@ -8,9 +8,6 @@ get_metadata() {
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'
 }
 
-# Get player status using playerctl
-PCTL_STATUS=$(playerctl status 2>/dev/null)
-
 # Extract metadata
 metadata=$(get_metadata)
 
